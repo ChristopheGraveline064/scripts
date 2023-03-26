@@ -24,32 +24,38 @@ def get_payload(service):
         }
     elif service == "accounts":
         payload = {
-            "productName": get_random_name(),
-            "postUserId": random.randint(1, 1000),
-            "purchaseUserId":  random.randint(1, 1000),
-        }
-    elif service == "orders":
-        payload = {
             "username": get_random_name(),
             "password": get_random_name()
         }
+    elif service == "orders":
+        payload = {
+            "productName": get_random_name(),
+            "postUserId": random.randint(1, 1000),
+            "purchaseUserId": random.randint(1, 1000)
+        }
+
 
     return payload
+
+
+def get_ip_address(service):
+    # API endpoint URL
+    if service == "products":
+        return "34.148.11.51"
+    elif service == "orders":
+        return "34.148.161.115"
+    elif service == "accounts":
+        return "34.23.38.111"
+    else:
+        print("Not a service...")
+        exit()
 
 
 def main(args):
 
     service, method, num_users = get_arg(args)
-    # API endpoint URL
-    ip_address = ""
-    if service == "products":
-        ip_address = "34.148.11.51"
-    elif service == "orders":
-        ip_address = "34.148.161.115"
-    elif service == "accounts":
-        ip_address = "34.23.38.111"
 
-    url = "http://{}/{}".format(ip_address ,service)
+    url = "http://{}/{}".format(get_ip_address(service), service)
 
     # Loop to simulate users
     for i in range(num_users):
