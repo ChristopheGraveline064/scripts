@@ -28,7 +28,7 @@ def get_payload(service):
             "postUserId": random.randint(1, 1000),
             "purchaseUserId":  random.randint(1, 1000),
         }
-    elif service == "order":
+    elif service == "orders":
         payload = {
             "username": get_random_name(),
             "password": get_random_name()
