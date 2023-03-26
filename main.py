@@ -10,6 +10,12 @@ def get_random_name(name_lenght = 10):
     # Generate random name
     return ''.join(random.choices(string.ascii_uppercase + string.digits, k=name_lenght))
 
+def get_id(url):
+    responce = requests.get(url)
+    random_item = random.choice(responce.json())
+    id = random_item['id']
+    return id
+
 def get_payload(service):
 
     payload = {}
@@ -60,12 +66,19 @@ def main(args):
     # Loop to simulate users
     for i in range(num_users):
 
-        headers = {'Content-Type': 'application/json'}
 
-        payload = get_payload(service)
+        if method == 'post':
+            headers = {'Content-Type': 'application/json'}
 
-        # Send POST request to API
-        response = requests.post(url, headers=headers, data=json.dumps(payload))
+            payload = get_payload(service)
+            # Send POST request to API
+            response = requests.post(url, headers=headers, data=json.dumps(payload))
+        elif method == 'get':
+            id = get_id(url)
+            response = requests.get('{}/{}'.format(url, id))
+        elif method == 'delete':
+            id = get_id(url)
+            response = requests.delete('{}/{}'.format(url, id))
 
         # Print response status code and content
         print(f"User {i+1} - Status code: {response.status_code}, Response content: {response.content}")
@@ -75,17 +88,21 @@ def main(args):
 
 def get_arg(args):
     default_service = 'products'
-    default_method = 'get'
+    default_method = 'post'
     default_n_user = 100
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--service', type=str,  help='E.G products, accounts or orders,      Default: {}'.format(default_service),  required=False, default=default_service)
-    parser.add_argument('--method', type=str,   help='E.G GET                               Default: {}'.format(default_method),  required=False, default=default_method)
-    parser.add_argument('--user', type=int,     help='                                      Default: {}'.format(default_n_user),  required=False, default=default_n_user)
+    parser = argparse.ArgumentParser(description='Enter arguments in lowercase')
+    parser.add_argument('--service', type=str,  help='E.G products, accounts or orders,     Default: {}'.format(default_service),  required=False, default=default_service)
+    parser.add_argument('--method', type=str,   help='E.G GET, POST, DELETE                 Default: {}'.format(default_method),  required=False, default=default_method)
+    parser.add_argument('--user', type=int,     help='Enter the number of user to simulate  Default: {}'.format(default_n_user),  required=False, default=default_n_user)
 
     args = parser.parse_args()
 
-    return args.service, args.method, args.user
+    service = args.service.lower()
+    method = args.method.lower()
+    user = args.user.lower()
+
+    return service, method, user
 
 if __name__ == '__main__':
     main(sys.argv)
