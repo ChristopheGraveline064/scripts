@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kube-apiserver
+  namespace: kube-system
+data:
+  apiserver.config: |
+    apiVersion: apiserver.config.k8s.io/v1alpha1
+    kind: AggregatorConfig
+    apiServer:
+      extraArgs:
+        enable-aggregator-routing: "true"
