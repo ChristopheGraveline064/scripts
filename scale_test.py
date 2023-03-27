@@ -89,6 +89,13 @@ def delete_all(url):
 def main(args):
 
     service, method, num_users, num_threads = get_arg(args)
+    method_dic = {"post": "create new ", "get": "get all ", "delete": "delete all "}
+
+    print("Service type:", service)
+    print("Request:", method_dic[method] + service)
+    print("Number of Users:", num_users)
+    print("Concurrent thread:", num_threads)
+    print("--------------------------------------------------------------------------------\n\n")
 
     url = "http://{}/{}".format(get_ip_address(service), service)
 
@@ -102,6 +109,7 @@ def main(args):
     # Loop to simulate users
     user_id = 0
     for event in range(int(num_users / num_threads)):
+        print("--------------------------------------------------------------------------------\n\n")
         threads = []
         # Loop to create threads
         for thread in range(num_threads):
