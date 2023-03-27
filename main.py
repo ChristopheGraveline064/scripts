@@ -75,7 +75,7 @@ def simulate_user(method, service, url, user):
     print(f"User {user + 1} - Status code: {response.status_code}, Response content: {response.content}")
 
     # Wait for a random time between 0.1 and 1 second before sending the next request
-    time.sleep(random.uniform(0.1, 1))
+    #time.sleep(random.uniform(0.1, 1))
 
 def get_all(url):
     response = requests.get('{}'.format(url))
@@ -120,7 +120,7 @@ def main(args):
 
 def get_arg(args):
     default_service = 'products'
-    default_method = 'post'
+    default_method = ['post']
     default_n_user = 1000
     default_num_threads = 15
 
@@ -137,7 +137,6 @@ def get_arg(args):
     method = ' '.join(args.method).lower()
     user = args.user
     threads = args.threads
-
 
     return service, method, user, threads
 
