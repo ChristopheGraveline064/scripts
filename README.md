@@ -12,3 +12,7 @@ optional arguments:
   --service SERVICE  E.G products, accounts or orders, Default: products
   --method METHOD    E.G GET Default: get
   --user USER        Default: 100
+
+## MONITOR SCALLING
+
+kubectl get pod <your pod name> -w
