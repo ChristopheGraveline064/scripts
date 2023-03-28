@@ -47,15 +47,7 @@ def get_payload(service):
 
 def get_ip_address(service):
     # API endpoint URL
-    if service == "products":
-        return "34.148.11.51"
-    elif service == "orders":
-        return "34.148.161.115"
-    elif service == "accounts":
-        return "34.23.38.111"
-    else:
-        print("Not a service...")
-        exit()
+    return "34.148.11.51"
 
 def simulate_user(method, service, url, user):
     if method == 'post':
