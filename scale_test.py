@@ -134,6 +134,9 @@ def get_arg(args):
     args = parser.parse_args()
 
     service = args.service.lower()
+    if service != "orders" and service != "products" and service != "accounts":
+        print("Only 'orders', 'products', and 'accounts' can be accepted")
+        exit(0)
     method = ' '.join(args.method).lower()
     user = args.user
     threads = args.threads
