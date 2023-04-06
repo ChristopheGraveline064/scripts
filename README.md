@@ -20,5 +20,5 @@ optional arguments:
 
 ## MONITOR SCALLING
 
-kubectl get pod <your pod name> -w
+kubectl get pod <your pod name> -w \
 kubectl get hpa
