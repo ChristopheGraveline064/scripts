@@ -97,7 +97,9 @@ def main(args):
     elif method == 'delete all':
         delete_all(url)
         exit()
-
+        
+    # Start the timer
+    start_time = time.time()
     # Loop to simulate users
     user_id = 0
     for event in range(int(num_users / num_threads)):
@@ -117,6 +119,15 @@ def main(args):
         # Wait for all threads to finish
         for t in threads:
             t.join()
+    
+    # End the timer
+    end_time = time.time()
+
+    # Calculate the total latency
+    total_latency = end_time - start_time
+    print(f"The total latency of {num_users} requests with {num_threads} is {round(total_latency, 4)}")
+    average_latency = total_latency / num_users
+    print(f"The average latency for a request is {round(average_latency, 4)}")
 
 def get_arg(args):
     default_service = 'products'
