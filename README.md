@@ -1,4 +1,5 @@
 # testing
+This is a script for simulating large traffic for e-commerce website and calculating the latency of requests
 
 ## RUN
 python .\scale_test.py
